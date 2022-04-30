@@ -32,12 +32,15 @@ for i = 1 : length(battery)
         temperature{discharge_count+1} = data{1}.Temperature_measured;
         temperature{discharge_count+1} = normalize(temperature{discharge_count+1}, 'range');
 
-        capacity{discharge_count+1} = repelem(data{1}.Capacity, length(temperature{discharge_count+1}));
+        capacity{discharge_count+1} = data{1}.Capacity;
         discharge_count = discharge_count + 1;
 
     end
 end 
-
+charge_per = normalize([capacity{:}], 'range');
+figure;
+hold on;
+plot(1:168, charge_per); % SoC persentage
 
 x = temperature{1}';
 x1 = measured_v{1}';
