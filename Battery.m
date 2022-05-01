@@ -38,32 +38,45 @@ for i = 1 : length(battery)
     end
 end 
 
-%%%%% histogram of the voltage, current , temperature, .... %%%%%
+%%%%% histogram of the voltage, current , temperature, .... 
+%%%%% Also finds the most ly appeared element in the specific cell array
+%%%%% Actually I tried this method as a sampling, we can try other sampling
+%%%%% methods which converst a N dim cell array to a single double 
+%% Todo : train test split should be done (70% training data) for cross validation.
 
-h = histogram(measured_v{36});
-
+h = histogram(load_c{56});
 % Retrieve some properties from the histogram
 V = h.Values
 E = h.BinEdges;
-% Use islocalmax
 L = zeros(1, length(V))
 [x, y] = max(V)
 L (1, y) = 1
 L = logical(L)
-% Find the centers of the bins that islocalmax identified as peaks
+% Find the centers of the bins that identified as peaks
 left = E(L);
 right = E([false L]);
-center = (left + right)/2
+center = (left + right)/2 % the whole cell array might be replaced by this value ? 
 % Plot markers on those bins
 hold on
 plot(center, V(L), 'o')
 
+
+
 %%%% SoC persentage %%%%
+
 % charge_per = normalize([capacity{:}], 'range');
 % figure;
 % hold on;
 % plot(1:168, charge_per); 
-% 
+
+
+
+
+
+%%%% tried simple regression tree, looks like it works if the input and
+%%%% labes cell array is the size.
+%% Todo :  try random forest (ensemble of trees) regression. %%%%%
+
 % x = temperature{1}';
 % x1 = measured_v{1}';
 % x2 = measured_c{1}';
