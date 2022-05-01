@@ -42,24 +42,27 @@ end
 %%%%% Also finds the most ly appeared element in the specific cell array
 %%%%% Actually I tried this method as a sampling, we can try other sampling
 %%%%% methods which converst a N dim cell array to a single double 
-%% Todo : train test split should be done (70% training data) for cross validation.
 
-h = histogram(load_c{56});
-% Retrieve some properties from the histogram
-V = h.Values
-E = h.BinEdges;
-L = zeros(1, length(V))
-[x, y] = max(V)
-L (1, y) = 1
-L = logical(L)
-% Find the centers of the bins that identified as peaks
-left = E(L);
-right = E([false L]);
-center = (left + right)/2 % the whole cell array might be replaced by this value ? 
-% Plot markers on those bins
-hold on
-plot(center, V(L), 'o')
+%% first 2 of them should be done quickly
+%% Todo : Try PCA 
+%% Todo : we can try other sampling methods. (Gibb's)
 
+
+% h = histogram(load_c{168});
+% % Retrieve some properties from the histogram
+% V = h.Values
+% E = h.BinEdges
+% L = zeros(1, length(V))
+% [x, y] = max(V)
+% L (1, y) = 1
+% L = logical(L)
+% % Find the centers of the bins that identified as peaks
+% left = E(L)
+% right = E([false L])
+% center = (left + right)/2 % the whole cell array might be replaced by this value ? 
+% % Plot markers on those bins
+% hold on
+% plot(center, V(L), 'o')
 
 
 %%%% SoC persentage %%%%
@@ -69,6 +72,8 @@ plot(center, V(L), 'o')
 % hold on;
 % plot(1:168, charge_per); 
 
+
+%% Todo : train test split should be done (70% training data) for cross validation.
 
 
 
@@ -80,6 +85,7 @@ plot(center, V(L), 'o')
 % x = temperature{1}';
 % x1 = measured_v{1}';
 % x2 = measured_c{1}';
+
 % x3 = temperature{2}';
 % x4 = measured_v{2}';
 % x5 = measured_c{2}';
