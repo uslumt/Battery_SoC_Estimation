@@ -13,7 +13,8 @@ battery = struct2cell(battery);
 %hist(data{1}.Voltage_load)
 
 discharge_count = 0;
-for i = 1 : length(battery)    
+for i = 1 : length(battery) 
+    
     if ismember(battery(1,  i), {'discharge'}) == 1
         data = battery(4,  i);
 
@@ -21,7 +22,6 @@ for i = 1 : length(battery)
         measured_v{discharge_count+1} = normalize(measured_v{discharge_count+1}, 'range');
 
         measured_c{discharge_count+1} = data{1}.Current_measured;
-        measured_c{discharge_count+1} = normalize(measured_c{discharge_count+1}, 'range');
 
         load_v{discharge_count+1} = data{1}.Voltage_load;
         load_v{discharge_count+1} = normalize(load_v{discharge_count+1}, 'range');
@@ -37,19 +37,41 @@ for i = 1 : length(battery)
 
     end
 end 
-charge_per = normalize([capacity{:}], 'range');
-figure;
-hold on;
-plot(1:168, charge_per); % SoC persentage
 
-x = temperature{1}';
-x1 = measured_v{1}';
-x2 = measured_c{1}';
-x3 = temperature{2}';
-x4 = measured_v{2}';
-x5 = measured_c{2}';
+%%%%% histogram of the voltage, current , temperature, .... %%%%%
 
-y = capacity{1} + 3*randn(size(capacity{1})) ;
+h = histogram(measured_v{36});
+
+% Retrieve some properties from the histogram
+V = h.Values
+E = h.BinEdges;
+% Use islocalmax
+L = zeros(1, length(V))
+[x, y] = max(V)
+L (1, y) = 1
+L = logical(L)
+% Find the centers of the bins that islocalmax identified as peaks
+left = E(L);
+right = E([false L]);
+center = (left + right)/2
+% Plot markers on those bins
+hold on
+plot(center, V(L), 'o')
+
+%%%% SoC persentage %%%%
+% charge_per = normalize([capacity{:}], 'range');
+% figure;
+% hold on;
+% plot(1:168, charge_per); 
+% 
+% x = temperature{1}';
+% x1 = measured_v{1}';
+% x2 = measured_c{1}';
+% x3 = temperature{2}';
+% x4 = measured_v{2}';
+% x5 = measured_c{2}';
+% 
+% y = capacity{1} + 3*randn(size(capacity{1})) ;
 %x = [temperature{1}']
 %(load_c{1}) %gets the temperature values of 168.cell
 %temperature(168) %gets 168. cell of temperature
