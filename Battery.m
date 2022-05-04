@@ -45,9 +45,12 @@ for i = 1 : length(battery)
 end 
 
 %%% Take look on table format as we did in car dataset.
-
 headers = ["Measured Voltage" "Measured Current" "Load Voltage" "Load Current" "Temperature" "Discharge Time" "Capacity(State of Charge)"];
-T = cell2table(combined_cell, "VariableNames",headers)
+T = cell2table(combined_cell, "VariableNames",headers);
+cv = cvpartition(size(T,1),'HoldOut',.2);
+Data_train = T(cv.training,:)
+
+Data_test = T(cv.test,:)
 
 %%%%% histogram of the voltage, current , temperature, .... 
 %%%%% Also finds the most ly appeared element in the specific cell array
