@@ -11,7 +11,7 @@ battery = struct2cell(battery);
 %plot(data{1}.Time, data{1}.Voltage_load)
 %hist(data{1}.Voltage_load)
 %hist(data{1}.Voltage_load)
-
+combined_cell = {};
 discharge_count = 0;
 for i = 1 : length(battery) 
     
@@ -19,24 +19,31 @@ for i = 1 : length(battery)
         data = battery(4,  i);
 
         measured_v{discharge_count+1} = data{1}.Voltage_measured;
-        measured_v{discharge_count+1} = normalize(measured_v{discharge_count+1}, 'range');
+        measured_v{discharge_count+1} = mean(normalize(measured_v{discharge_count+1}, 'range'));
 
         measured_c{discharge_count+1} = data{1}.Current_measured;
+        measured_c{discharge_count+1} = mean(normalize(measured_c{discharge_count+1}, 'range'));
 
         load_v{discharge_count+1} = data{1}.Voltage_load;
-        load_v{discharge_count+1} = normalize(load_v{discharge_count+1}, 'range');
+        load_v{discharge_count+1} = mean(normalize(load_v{discharge_count+1}, 'range'));
 
         load_c{discharge_count+1} = data{1}.Current_load;
-        load_c{discharge_count+1} = normalize(load_c{discharge_count+1}, 'range');
+        load_c{discharge_count+1} = mean(normalize(load_c{discharge_count+1}, 'range'));
 
         temperature{discharge_count+1} = data{1}.Temperature_measured;
-        temperature{discharge_count+1} = normalize(temperature{discharge_count+1}, 'range');
+        temperature{discharge_count+1} = mean(normalize(temperature{discharge_count+1}, 'range'));
 
         capacity{discharge_count+1} = data{1}.Capacity;
+        combined_cell = [combined_cell; {measured_v{discharge_count+1} measured_c{discharge_count+1} load_v{discharge_count+1} temperature{discharge_count+1} capacity{discharge_count+1}} ];
         discharge_count = discharge_count + 1;
 
     end
 end 
+
+%%% Take look on table format as we did in car dataset.
+
+headers = ["measured_v" "measured_c" "load_v" "temperature" "capacity"];
+T = cell2table(combined_cell, "VariableNames",headers)
 
 %%%%% histogram of the voltage, current , temperature, .... 
 %%%%% Also finds the most ly appeared element in the specific cell array
@@ -47,8 +54,9 @@ end
 %% Todo : Try PCA 
 %% Todo : we can try other sampling methods. (Gibb's)
 
-
-% h = histogram(load_c{168});
+%plot(1:168, [temperature{:}])
+%% Todo : Histogram approach:
+% h = histogram(load_c{9});
 % % Retrieve some properties from the histogram
 % V = h.Values
 % E = h.BinEdges
@@ -63,6 +71,9 @@ end
 % % Plot markers on those bins
 % hold on
 % plot(center, V(L), 'o')
+
+
+
 
 
 %%%% SoC persentage %%%%
