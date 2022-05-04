@@ -33,8 +33,12 @@ for i = 1 : length(battery)
         temperature{discharge_count+1} = data{1}.Temperature_measured;
         temperature{discharge_count+1} = mean(normalize(temperature{discharge_count+1}, 'range'));
 
+        time{discharge_count+1} = data{1}.Time;
+        time{discharge_count+1} = mean(normalize(time{discharge_count+1}, 'range'));
+
         capacity{discharge_count+1} = data{1}.Capacity;
-        combined_cell = [combined_cell; {measured_v{discharge_count+1} measured_c{discharge_count+1} load_v{discharge_count+1} temperature{discharge_count+1} capacity{discharge_count+1}} ];
+        combined_cell = [combined_cell; {measured_v{discharge_count+1} measured_c{discharge_count+1} ...
+            load_v{discharge_count+1} load_c{discharge_count+1} temperature{discharge_count+1} time{discharge_count+1} capacity{discharge_count+1}} ];
         discharge_count = discharge_count + 1;
 
     end
@@ -42,7 +46,7 @@ end
 
 %%% Take look on table format as we did in car dataset.
 
-headers = ["measured_v" "measured_c" "load_v" "temperature" "capacity"];
+headers = ["Measured Voltage" "Measured Current" "Load Voltage" "Load Current" "Temperature" "Discharge Time" "Capacity(State of Charge)"];
 T = cell2table(combined_cell, "VariableNames",headers)
 
 %%%%% histogram of the voltage, current , temperature, .... 
