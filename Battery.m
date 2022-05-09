@@ -49,25 +49,20 @@ end
 %% Converted cell arrays into Table format, Prepered the data for cross validation %%
 
 headers = ["Measured Voltage" "Measured Current" "Load Voltage" "Load Current" "Temperature" "time" "Capacity(State of Charge)"];
-T = cell2table(combined_cell, "VariableNames",headers)
+T = cell2table(combined_cell, "VariableNames",headers);
 cv = cvpartition(size(T,1),'HoldOut',.3); % 70 persent of data set is now training data
-Data_train = T(cv.training,:);
-Data_test = T(cv.test,:);
-vol = T.("Measured Voltage");
-cur = T.("Measured Current");
-vol1 = T.("Load Voltage");
-cur1 = T.("Load Current");
-tem = T.Temperature;
-ti = T.time;
-pre = [vol cur vol1 cur1 tem ti]
-soc = T.("Capacity(State of Charge)");
-%%%%% histogram of the voltage, current , temperature, .... 
-%%%%% Also finds the most ly appeared element in the specific cell array
-%%%%% Actually I tried this method as a sampling, we can try other sampling
-%%%%% methods which converst a N dim cell array to a single double 
 
-%% Todo : Try PCA 
+Data_train = T(cv.training, :);
+Data_test = T(cv.test, :);
+
+train_features = [Data_train.("Measured Voltage") Data_train.("Measured Current") Data_train.("Load Voltage") Data_train.("Load Current") Data_train.("Temperature") Data_train.("time")];
+train_labels = Data_train.("Capacity(State of Charge)");
+
+test_features = [Data_test.("Measured Voltage") Data_test.("Measured Current") Data_test.("Load Voltage") Data_test.("Load Current") Data_test.("Temperature") Data_test.("time")];
+test_labels = Data_test.("Capacity(State of Charge)");
+
 %% Todo : We can try other sampling methods(Gibb's) to extract some meaningful values from cell arrays %%
+
 
 %% Histogram approach for picking the most frequently appeared value in cell array %%
 
@@ -93,41 +88,6 @@ soc = T.("Capacity(State of Charge)");
 charge_per = normalize([capacity{:}], 'norm', Inf);
 figure;
 hold on;
-xlabel("Index")
-ylabel("% SoC")
-plot(1:168, charge_per); 
-
-%%%% tried simple regression tree, looks like it works if the input and
-%%%% labes cell array is the size.
-%% Todo :  try random forest (ensemble of trees) regression. %%
-
-% x = temperature{1}';
-% x1 = measured_v{1}';
-% x2 = measured_c{1}';
-
-% x3 = temperature{2}';
-% x4 = measured_v{2}';
-% x5 = measured_c{2}';
-% 
-% y = capacity{1} + 3*randn(size(capacity{1})) ;
-%x = [temperature{1}']
-%(load_c{1}) %gets the temperature values of 168.cell
-%temperature(168) %gets 168. cell of temperature
-
-% plot(1:length([capacity{:}]), [capacity{:}])
-% xlabel('index')
-% ylabel('Charge')
-% title('State Of Charge')
-
-%x = [1;30;45;61;177;2;33;4;44;234;356;4;2;3;42;2;3;59;68;81;1;30;45;59;68;81]
-% 
-% x1 = [177;2;33;4;177;2;33;4;44;234;356;4;2;3;42;2;3;44;234;356;4;2;3;42;2;3];
-% x2 = [157;2;353;4;157;2;53;4;44;534;356;4;2;53;52;2;3;44;235;556;4;252;53;42;2;3];
-% y = [22,44,61,80,120,22,44,61,80,120,133,145,44,61,44,61,133,145,133,145,44,61,44,61,133,145];
-% 
-% tree = fitrtree([x x1 x2],y ,...
-%                 'CategoricalPredictors',3,'MinParentSize',5,...
-%                 'PredictorNames',{'x','x1', 'x2'});
-% Ynew = predict(tree, [x3 x4 x5])
-
-%view(tree,'Mode','graph');
+xlabel("Index");
+ylabel("% SoC");
+plot(1:length([capacity{:}]), charge_per); 
