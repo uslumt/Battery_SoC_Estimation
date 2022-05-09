@@ -34,24 +34,33 @@ for i = 1 : length(battery)
         temperature{discharge_count+1} = mean(normalize(temperature{discharge_count+1}, 'range'));
 
         time{discharge_count+1} = data{1}.Time;
-        time{discharge_count+1} = mean(time{discharge_count+1});
+        time{discharge_count+1} = mean(normalize(time{discharge_count+1}, 'range'));;
+        
 
         capacity{discharge_count+1} = data{1}.Capacity;
 
         combined_cell = [combined_cell; {measured_v{discharge_count+1} measured_c{discharge_count+1} ...
-            load_v{discharge_count+1} load_c{discharge_count+1} temperature{discharge_count+1} time{discharge_count+1} capacity{discharge_count+1}} ];
+            load_v{discharge_count+1} load_c{discharge_count+1} temperature{discharge_count+1} ...
+            time{discharge_count+1} capacity{discharge_count+1} } ];
         discharge_count = discharge_count + 1;
     end
 end 
 
 %% Converted cell arrays into Table format, Prepered the data for cross validation %%
 
-headers = ["Measured Voltage" "Measured Current" "Load Voltage" "Load Current" "Temperature" "Discharge Time" "Capacity(State of Charge)"];
-T = cell2table(combined_cell, "VariableNames",headers);
-cv = cvpartition(size(T,1),'HoldOut',.2); % 80 percente of data set is now training data
+headers = ["Measured Voltage" "Measured Current" "Load Voltage" "Load Current" "Temperature" "time" "Capacity(State of Charge)"];
+T = cell2table(combined_cell, "VariableNames",headers)
+cv = cvpartition(size(T,1),'HoldOut',.3); % 70 persent of data set is now training data
 Data_train = T(cv.training,:);
 Data_test = T(cv.test,:);
-
+vol = T.("Measured Voltage");
+cur = T.("Measured Current");
+vol1 = T.("Load Voltage");
+cur1 = T.("Load Current");
+tem = T.Temperature;
+ti = T.time;
+pre = [vol cur vol1 cur1 tem ti]
+soc = T.("Capacity(State of Charge)");
 %%%%% histogram of the voltage, current , temperature, .... 
 %%%%% Also finds the most ly appeared element in the specific cell array
 %%%%% Actually I tried this method as a sampling, we can try other sampling
