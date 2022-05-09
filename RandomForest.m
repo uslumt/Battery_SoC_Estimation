@@ -12,7 +12,7 @@ figure;
 plot(1:length([test_labels]), [test_labels], '.'); 
 hold on;
 plot(1:length([test_labels]), [Tree_predicted], '.');
-title("Binary Tree Regression ");
+title(sprintf("Binary Tree Regression (RMSE : %f) ", Tree_root_mean_squared_error) );
 xlabel("Index");
 ylabel("test labels");
 legend('Test Lables', 'Predicted Labels')
