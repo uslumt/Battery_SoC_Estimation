@@ -1,24 +1,37 @@
 %% Regression Tree Implementation %%
 
-tree = fitrtree(train_features, train_labels, 'CategoricalPredictors', 6 ,...
-    'PredictorNames',["Measured Voltage", "Measured Current", "Load Voltage", "Load Current", "Temperature", "time"] ...
-    , 'ResponseName','Capacity(State of Charge)');
+tree = fitrtree(train_features, train_labels, 'ResponseName','Y')
 
-predicted = predict(tree, test_features);
+Tree_predicted = predict(tree, [test_features]);
+Tree_re_sub_error = resubLoss(tree)
 
-view(tree, 'Mode', 'graph');
-rmse =  sqrt(mean((test_labels - pred).^2))
+% view(tree, 'Mode', 'graph'); % illustration of binary tree splits
+Tree_root_mean_squared_error = sqrt(immse(test_labels, Tree_predicted)) % root mean square error
 
-L = loss(tree, test_features, 'Capacity(State of Charge)' )
+figure;
+plot(1:length([test_labels]), [test_labels], '.'); 
+hold on;
+plot(1:length([test_labels]), [Tree_predicted], '.');
+title("Binary Tree Regression ");
+xlabel("Index");
+ylabel("test labels");
+legend('Test Lables', 'Predicted Labels')
+hold off;
 
-% t = templateTree('Surrogate','on');
-% Mdl1 = fitrensemble(Data_train,'Capacity(State of Charge)', ...
-%     'OptimizeHyperparameters',{'NumLearningCycles','LearnRate','MaxNumSplits'})
-% pMPG = predict(Mdl1,[Data_test]);
-% V1 = pMPG;
-% V2 = Data_test.("Capacity(State of Charge)");
-% 
-% RMSE = sqrt(mean((V1-V2).^2))
+% There is a bug while using the loss funtion for Mean Squared error
+% calculation
+% L = loss(tree, test_features, 'Capacity(State of Charge)')
 
-% mse1 = resubLoss(Mdl1)
+%% Enseble of regression Trees(Random forest)
 
+t = templateTree('Surrogate','on');
+RF = fitrensemble(Data_train,'Capacity(State of Charge)', ...
+    'OptimizeHyperparameters',{'NumLearningCycles','LearnRate','MaxNumSplits'})
+RF_predicted = predict(RF, [Data_test]);
+
+V1 = RF_predicted;
+V2 = Data_test.("Capacity(State of Charge)");
+
+RF_root_mean_squared_error = sqrt(mean((V1-V2).^2))
+
+RF_re_sub_error = resubLoss(RF)
