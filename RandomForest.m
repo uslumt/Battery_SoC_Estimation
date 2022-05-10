@@ -1,10 +1,11 @@
 %% Regression Tree Implementation %%
 
-tree = fitrtree(train_features, train_labels, 'ResponseName','Y')
+tree = fitrtree(train_features, train_labels, 'ResponseName','Y', ...
+    'PredictorNames',{'m_vol', 'm_cur', 'l_vol', 'l_cur', 'temp', 'time'})
 Tree_predicted = predict(tree, [test_features]);
 Tree_re_sub_error = resubLoss(tree)
 
-% view(tree, 'Mode', 'graph'); % illustration of binary tree splits
+view(tree, 'Mode', 'graph'); % illustration of binary tree splits
 Tree_root_mean_squared_error = sqrt(immse(test_labels, Tree_predicted)) % root mean square error
 
 figure;
@@ -37,4 +38,3 @@ xlabel("Index")
 ylabel("test labels")
 title( sprintf("Random Rorest Regression (RMSE : %f)", RF_root_mean_squared_error))
 hold off;
-
