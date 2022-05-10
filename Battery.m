@@ -2,7 +2,8 @@ clear all;
 close all;
 
 %%%% Load datasets %%%
-data_path = append(pwd,'\B0005.mat');
+battery_name = 'B0005';
+data_path = append(pwd, '/', battery_name, '.mat');
 dataset = load(data_path);
 battery = dataset.B0005.cycle;
 battery = struct2cell(battery);
@@ -34,9 +35,8 @@ for i = 1 : length(battery)
         temperature{discharge_count+1} = mean(normalize(temperature{discharge_count+1}, 'range'));
 
         time{discharge_count+1} = data{1}.Time;
-        time{discharge_count+1} = mean(normalize(time{discharge_count+1}, 'range'));;
+        time{discharge_count+1} = mean(normalize(time{discharge_count+1}, 'range'));
         
-
         capacity{discharge_count+1} = data{1}.Capacity;
 
         combined_cell = [combined_cell; {measured_v{discharge_count+1} measured_c{discharge_count+1} ...
@@ -82,7 +82,6 @@ test_labels = Data_test.("Capacity(State of Charge)");
 % hold on
 % plot(center, V(L), 'o')
 
-
 %% Overall SoC persentage %%
 
 charge_per = normalize([capacity{:}], 'norm', Inf);
@@ -91,3 +90,4 @@ hold on;
 xlabel("Index");
 ylabel("% SoC");
 plot(1:length([capacity{:}]), charge_per); 
+title(append('Battery ',battery_name));
