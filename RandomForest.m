@@ -6,6 +6,8 @@ Tree_predicted = predict(tree, [test_features]);
 Tree_re_sub_error = resubLoss(tree)
 
 view(tree, 'Mode', 'graph'); % illustration of binary tree splits
+TreeFeatureImportanceScores = predictorImportance(tree)
+
 Tree_root_mean_squared_error = sqrt(immse(test_labels, Tree_predicted)) % root mean square error
 
 figure;
@@ -17,6 +19,7 @@ xlabel("Index");
 ylabel("test labels");
 legend('Test Lables', 'Predicted Labels')
 hold off;
+
 
 % There is a bug while using the loss funtion for Mean Squared error calculation
 % L = loss(tree, test_features, 'Capacity(State of Charge)')
