@@ -19,23 +19,17 @@ for i = 1 : length(battery)
     if ismember(battery(1,  i), {'discharge'}) == 1
         data = battery(4,  i);
 
-        measured_v{discharge_count+1} = data{1}.Voltage_measured;
-        measured_v{discharge_count+1} = mean(normalize(measured_v{discharge_count+1}, 'range'));
+        measured_v{discharge_count+1} = mean(normalize(data{1}.Voltage_measured, 'range'));
 
-        measured_c{discharge_count+1} = data{1}.Current_measured;
-        measured_c{discharge_count+1} = mean(normalize(measured_c{discharge_count+1}, 'range'));
+        measured_c{discharge_count+1} = mean(normalize(data{1}.Current_measured, 'range'));
 
-        load_v{discharge_count+1} = data{1}.Voltage_load;
-        load_v{discharge_count+1} = mean(normalize(load_v{discharge_count+1}, 'range'));
+        load_v{discharge_count+1} = mean(normalize(data{1}.Voltage_load, 'range'));
 
-        load_c{discharge_count+1} = data{1}.Current_load;
-        load_c{discharge_count+1} = mean(normalize(load_c{discharge_count+1}, 'range'));
+        load_c{discharge_count+1} = mean(normalize(data{1}.Current_load, 'range'));
 
-        temperature{discharge_count+1} = data{1}.Temperature_measured;
-        temperature{discharge_count+1} = mean(normalize(temperature{discharge_count+1}, 'range'));
+        temperature{discharge_count+1} = mean(normalize(data{1}.Temperature_measured, 'range'));
 
-        time{discharge_count+1} = data{1}.Time;
-        time{discharge_count+1} = mean(normalize(time{discharge_count+1}, 'range'));
+        time{discharge_count+1} = mean(normalize(data{1}.Time, 'range'));
         
         capacity{discharge_count+1} = data{1}.Capacity;
 
@@ -52,8 +46,12 @@ headers = ["Measured Voltage" "Measured Current" "Load Voltage" "Load Current" "
 T = cell2table(combined_cell, "VariableNames",headers);
 cv = cvpartition(size(T,1),'HoldOut',.3); % 70 persent of data set is now training data
 
+%%% Export trating and testing data to csv file for implementations such as Neural Network %%%
 Data_train = T(cv.training, :);
 Data_test = T(cv.test, :);
+
+writetable(Data_train,'train.csv');
+writetable(Data_test,'test.csv');
 
 train_features = [Data_train.("Measured Voltage") Data_train.("Measured Current") Data_train.("Load Voltage") Data_train.("Load Current") Data_train.("Temperature") Data_train.("time")];
 train_labels = Data_train.("Capacity(State of Charge)");
