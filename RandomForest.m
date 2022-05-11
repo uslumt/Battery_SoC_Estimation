@@ -32,6 +32,7 @@ RF = fitrensemble(Data_train,'Capacity(State of Charge)', ...
 RF_predicted = predict(RF, [Data_test]);
 RF_root_mean_squared_error = sqrt(immse(RF_predicted, Data_test.("Capacity(State of Charge)")));
 RF_re_sub_error = resubLoss(RF);
+RandomForestFeatureImportanceScores = predictorImportance(RF)
 
 figure;
 plot(1:length(Data_test.("Capacity(State of Charge)")), [Data_test.("Capacity(State of Charge)")], '.');
