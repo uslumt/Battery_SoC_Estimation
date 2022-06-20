@@ -15,8 +15,11 @@ Here we implemented several Stochastic Methods and Machine Learning algorithms o
 ## Results 
 |   | COARSE TREE | MEDIUM TREE  | FINE TREE | BAGGED TREE  | BOOSTED TREE | LINEAR REGRESSION  | LINEAR REGRESSION STEPWISE | LSVM  | QSVM | CSVM  | RANDOM FOREST |  NEURAL NETWORKS  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |  ------------- |  ------------- |  ------------- |  
+| RMSE  |  0.0728 | 0.0260  | 0.0168 | 0.0176  | 0.0674 | 0.0231  | 0.0166 | 0.0241  | 0.0232 | 0.0253  | 0.0188 |  0.0707  |
 
-            
+
+  
+  
 
 
 
