@@ -27,7 +27,7 @@ hold off;
 %% Enseble of regression Trees(Random forest)
 
 t = templateTree('Surrogate','on');
-RF = fitrensemble(Data_train,'Capacity(State of Charge)', ...
+RF = fitrensemble(T,'Capacity(State of Charge)', ...
     'OptimizeHyperparameters',{'NumLearningCycles','LearnRate','MaxNumSplits'});
 RF_predicted = predict(RF, [Data_test]);
 RF_root_mean_squared_error = sqrt(immse(RF_predicted, Data_test.("Capacity(State of Charge)")));
@@ -41,4 +41,5 @@ plot(1:length([RF_predicted]), [RF_predicted], '.');
 xlabel("Index")
 ylabel("test labels")
 title( sprintf("Random Rorest Regression (RMSE : %f)", RF_root_mean_squared_error))
+legend('Test Lables', 'Predicted Labels')
 hold off;
