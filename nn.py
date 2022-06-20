@@ -18,19 +18,21 @@ import torch.nn as nn
 import tensorflow as tf
 
 train_data_path ='/content/drive/My Drive/train.csv'
-train = pd.read_csv(train_data_path,header=None)
+train = pd.read_csv(train_data_path)
 
 num_of_train_data = train.shape[0]
 
 test_data_path ='/content/drive/My Drive/test.csv'
-test = pd.read_csv(test_data_path,header=None)
+test = pd.read_csv(test_data_path)
 
-target = train[0] # capacity
-train.drop([0],axis = 1 , inplace = True) # drop target column
+num_of_test_data = test.shape[0]
+
+target = train["Capacity(State of Charge)"] # capacity
+train.drop(["Capacity(State of Charge)"],axis = 1 , inplace = True) # drop target column
 
 # combine train and test
-val = test[0] # capacity
-test.drop([0],axis = 1 , inplace = True) # drop target column
+val = test["Capacity(State of Charge)"] # capacity
+test.drop(["Capacity(State of Charge)"],axis = 1 , inplace = True) # drop target column
 combined = train.append(test)
 combined.reset_index(inplace=True)
 combined.drop(['index'], inplace=True, axis=1)
@@ -103,7 +105,7 @@ criterion = nn.MSELoss(reduction='mean')
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
 # train model
-epoch = 1800
+epoch = 800
 train_losses = []
 val_losses = []
 for t in range(epoch):
@@ -121,6 +123,7 @@ for t in range(epoch):
     # backward
     tr_loss.backward()
     optimizer.step()
+    
     """
     model.eval()
     with torch.no_grad():
@@ -133,13 +136,13 @@ for t in range(epoch):
     if t % 100 == 0:  
         print(f"Epoch: {t}, Train loss :{tr_loss:.3f}") #, Val loss :{val_loss:.3f}
 
-plt.plot(np.arange(1800), train_losses)  
-#plt.plot(np.arange(1800), val_losses)
+plt.plot(np.arange(800), train_losses)  
+#plt.plot(np.arange(500), val_losses)
 plt.show()  
 
-plt.plot(np.arange(118), train_labels,"-")  
-plt.plot(np.arange(118), y_pred.detach().numpy(),".")
+plt.plot(np.arange(num_of_train_data), train_labels,"-")  
+plt.plot(np.arange(num_of_train_data), y_pred.detach().numpy(),".")
 
 predictions = model(test_features).detach().numpy()
-plt.plot(np.arange(50), test_true_value,"-")  
-plt.plot(np.arange(50), predictions,".")
+plt.plot(np.arange(num_of_test_data), test_true_value,"-")  
+plt.plot(np.arange(num_of_test_data), predictions,".")
