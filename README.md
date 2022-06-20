@@ -4,3 +4,15 @@ Our research on this topic showed that prognostics is one of the most important 
 
 Here we implemented several Stochastic Methods and Machine Learning algorithms on  [Li-ion battery dataset from NASA](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/) for comparison.
 
+
+
+
+
+
+
+**Authors**  
+[Xuetian Shi](https://github.com/xuetians) @ USI 
+[Mert Alagözlü](https://github.com/mertalagozlu) @ USI  
+Muhammet USLU @ USI  
+
+
