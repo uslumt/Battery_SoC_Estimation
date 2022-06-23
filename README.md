@@ -21,5 +21,5 @@ Here we implemented several Stochastic Methods and Machine Learning algorithms o
 
   ## Future Work
   As the results of our current work showed some Stochastic methods outperform on Battery dataset; we would like to try different methods such as [eSPA+](https://direct.mit.edu/neco/article-abstract/34/5/1220/110047/eSPA-Scalable-Entropy-Optimal-Machine-Learning?redirectedFrom=fulltext), LSTM on different data sets and/or augment current dataset from NASA.
-  Since the application can be useful for edge computing, for instance Electronic Control Unit (ECU) of a vehicle, We're also interested in machine learning model efficiency in a limited resources (memory, energy).
-  Finally; in safety critical applicaitons the explainability is important we would like to compare the Stochastic Methods in terms of accuracy reproducibility, trustfullability.
+  Since the application can be useful for edge computing, for instance Electronic Control Unit (ECU) of a vehicle, we're also interested in machine learning model efficiency in limited resource applications (memory, energy).
+  Finally; in safety critical applicaitons the explainability is key we would like to compare the Stochastic Methods in terms of accuracy reproducibility, trustfullability.
