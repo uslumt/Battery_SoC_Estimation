@@ -19,4 +19,6 @@ Here we implemented several Stochastic Methods and Machine Learning algorithms o
 | Training Time (sec) | 0.613 | 0.629 | 0.643 | 1.584 | 1.089 | 4.464 |  8.725 | 8.484 | 8.306 | 7.952 | 6.743 | 5.60 | 
 | Prediction Speed |  19000 | 22000  | 18000 | 4900  | 4900 | 2100  | 2300 | 9500  | 9400 | 9100  | 5427 |  6250  |
 
-  
+  ## Future Work
+  As the results of our current work showed some Stochastic methods outperform on Battery dataset; we would like to try different methods such as [eSPA+] (https://direct.mit.edu/neco/article-abstract/34/5/1220/110047/eSPA-Scalable-Entropy-Optimal-Machine-Learning?redirectedFrom=fulltext), LSTM on different data sets.
+  Since the application can be useful for edge computing, for instance Electrocic Control Unit (ECU) of a vehicle, We're also interested in machine learning model efficiency in a limited resources (memory, energy).
