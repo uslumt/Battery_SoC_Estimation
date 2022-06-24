@@ -1,5 +1,5 @@
 **Authors**  
-[Xuetian Shi](https://github.com/xuetians),  [Mert Alagözlü](https://github.com/mertalagozlu),  [Muhammet USLU](https://github.com/uslumt) @ USI __
+[Xuetian Shi](https://github.com/xuetians),  [Mert Alagözlü](https://github.com/mertalagozlu),  [Muhammet USLU](https://github.com/uslumt) @ USI__
 Spacial thanks to
 
 # Battery_SoC_Estimation
