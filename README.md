@@ -1,5 +1,5 @@
 **Authors**  
-[Xuetian Shi](https://github.com/xuetians),  [Mert Alagözlü](https://github.com/mertalagozlu),  [Muhammet USLU](https://github.com/uslumt) @ USI\
+[Xuetian Shi](https://github.com/xuetians),  [Mert Alagözlü](https://github.com/mertalagozlu),  [Muhammet USLU](https://github.com/uslumt) @ Università della Svizzera italiana (USI)\
 Spacial thanks to Prof. Illia Horenko, Edoardo Vecchi and Steffen Albrecht for their guidance and interest in our questions!   
 
 # Battery_SoC_Estimation
