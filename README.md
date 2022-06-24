@@ -1,5 +1,6 @@
 **Authors**  
-[Xuetian Shi](https://github.com/xuetians),  [Mert Alagözlü](https://github.com/mertalagozlu),  [Muhammet USLU](https://github.com/uslumt) @ USI
+[Xuetian Shi](https://github.com/xuetians),  [Mert Alagözlü](https://github.com/mertalagozlu),  [Muhammet USLU](https://github.com/uslumt) @ USI __
+Spacial thanks to
 
 # Battery_SoC_Estimation
 Nowadays most of the BEVs manufacturers use Li-Ion based batteries which takes the biggest portion of vehicle architecture. Those Electronic components need to be controlled, diagnosed and monitored by some sophisticated systems so called Battery Management Systems (BMS).
