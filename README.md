@@ -15,7 +15,7 @@ Here we implemented several Stochastic Methods and Machine Learning algorithms o
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |  ------------- |  ------------- |  ------------- |  
 | RMSE  |  0.0728 | 0.0260  | **0.0168** | 0.0176  | 0.0674 | 0.0231  | **0.0166** | 0.0241  | 0.0232 | 0.0253  | **0.0188** |  0.0707  |
 | Training Time (sec) | 0.613 | 0.629 | 0.643 | 1.584 | 1.089 | 4.464 |  8.725 | 8.484 | 8.306 | 7.952 | 6.743 | 5.60 | 
-| Prediction Speed |  19000 | 22000  | 18000 | 4900  | 4900 | 2100  | 2300 | 9500  | 9400 | 9100  | 5427 |  6250  |
+| Prediction Speed |  19000 | 22000  | 18000 | 4900  | 4900 | 2100  | 2300 | 9500  | 9400 | 9100  | 6400 |  6250  |
 
   ## Future Work
   As the results of our current work showed some Stochastic methods outperform on Battery dataset; we would like to try different methods such as [eSPA+](https://direct.mit.edu/neco/article-abstract/34/5/1220/110047/eSPA-Scalable-Entropy-Optimal-Machine-Learning?redirectedFrom=fulltext), LSTM on different data sets and/or augment current dataset from NASA.
